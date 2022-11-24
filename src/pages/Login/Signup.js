@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
@@ -7,16 +7,37 @@ import { AuthContext } from '../../contexts/AuthProvider';
 const Signup = () => {
     const { createUser, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
+    const [userImage, setUserImage] = useState('');
+    const imgbbKey = process.env.REACT_APP_imgbb_key;
     const onSubmit = data => {
-        const { email, password, image, role, name } = data;
+        const { email, password, role, name } = data;
         const user = {
             name,
             password,
             email,
             role,
-            image
+            userImage
+
         }
         console.log(user);
+
+        // Upload image in IMGBB 
+        const img = data.image[0];
+        const formData = new FormData();
+        formData.append('image', img);
+        const url = `https://api.imgbb.com/1/upload?key=${imgbbKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(dataImg => {
+                const imageUrl = dataImg.data.url;
+                setUserImage(imageUrl);
+            })
+            .catch(error => console.log(error));
+
+
         // Sign Up with Email & Password
         createUser(email, password)
             .then((userCredential) => {
@@ -29,6 +50,8 @@ const Signup = () => {
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
             });
+
+
     };
 
     // Google Signin
