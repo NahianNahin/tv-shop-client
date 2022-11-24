@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         const { email, password, image, role, name } = data;
@@ -16,10 +17,12 @@ const Signup = () => {
             image
         }
         console.log(user);
+        // Sign Up with Email & Password
         createUser(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                toast.success('Succusfully SignUp');
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -27,6 +30,24 @@ const Signup = () => {
                 console.log(errorCode, errorMessage);
             });
     };
+
+    // Google Signin
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                toast.success('Succusfully SignIn');
+
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+
+    }
     return (
         <div>
             <div className='flex justify-center items-center my-[50px]'>
@@ -77,7 +98,9 @@ const Signup = () => {
                         <p className='text-xs text-center'>Already Have An Account ? <span className='text-secondary font-bold'><Link to='/login'>Go To Login</Link></span></p>
                     </form>
                     <div className='flex  gap-3 items-center my-5'><hr className='border-[1px] w-1/2' /> <span className='font-bold'>OR</span> <hr className='border-[1px] w-1/2' /></div>
-                    <button className='btn btn-outline w-full btn-primary font-bold'>
+                    <button
+                        onClick={handleGoogleSignIn}
+                        className='btn btn-outline w-full btn-primary font-bold'>
                         CONTINUE WITH GOOGLE
                     </button>
                 </div>

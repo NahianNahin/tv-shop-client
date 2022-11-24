@@ -1,30 +1,49 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         const { email, password } = data;
         console.log(email, password);
+        // SignIn  with Email & Password
         signIn(email, password)
-        .then((userCredential) => {
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                toast.success('Succusfully SignIn');
 
-            const user = userCredential.user;
-            console.log(user);
-            
-
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
 
     };
+
+    // Google SignIn
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                toast.success('Succusfully SignIn');
+
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+
+    }
     return (
         <div>
             <div className='flex justify-center items-center my-[150px]'>
@@ -53,7 +72,9 @@ const Login = () => {
                         <p className='text-xs text-center'>New to TV Shop? <span className='text-secondary font-bold'><Link to='/signup'>Create new account</Link></span></p>
                     </form>
                     <div className='flex  gap-3 items-center my-5'><hr className='border-[1px] w-1/2' /> <span className='font-bold'>OR</span> <hr className='border-[1px] w-1/2' /></div>
-                    <button className='btn btn-outline w-full btn-primary font-bold'>
+                    <button
+                        onClick={handleGoogleSignIn}
+                        className='btn btn-outline w-full btn-primary font-bold'>
                         CONTINUE WITH GOOGLE
                     </button>
                 </div>
