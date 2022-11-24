@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'
+import { AuthContext } from '../contexts/AuthProvider';
 
 const Header = () => {
+    const { logOut, user } = useContext(AuthContext)
     const allMenus = <>
-    <li><Link to='/'>Home</Link></li>
-    <li><Link to='/blogs'>Blogs</Link></li>
-    <li><Link to='/dashboard'>Dashboard</Link></li>
-    <li><Link to='/login'>Login</Link></li>
-    <button className='btn  bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>Log Out</button>
-</>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/blogs'>Blogs</Link></li>
+        <li><Link to='/dashboard'>Dashboard</Link></li>
+        {
+            user && user?.uid
+                ?
+                <button
+                    onClick={logOut}
+                    className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>
+                    Log Out
+                </button>
+                :
+                <li><Link to='/login'>Login</Link></li>
+        }
+
+    </>
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -27,7 +39,7 @@ const Header = () => {
                 <ul className="menu menu-horizontal p-0">
                     {allMenus}
                 </ul>
-                
+
             </div>
         </div>
     );
