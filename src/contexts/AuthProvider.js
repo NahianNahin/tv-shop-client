@@ -7,6 +7,7 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
+    updateProfile,
 } from "firebase/auth";
 import app from '../firebase/firebase.config';
 import toast from 'react-hot-toast';
@@ -30,6 +31,10 @@ const AuthProvider = ({ children }) => {
     const googleSignIn = () => {
         return signInWithPopup(auth, googleProvider);
     }
+        // update Profile
+        const handleUpdateProfile = (profile) => {
+            return updateProfile(auth.currentUser, profile)
+        }
     //user state change
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -55,6 +60,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         signIn,
         googleSignIn,
+        handleUpdateProfile,
         logOut
     }
     return (

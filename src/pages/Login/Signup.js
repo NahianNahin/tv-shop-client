@@ -1,26 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
-    const { createUser, googleSignIn } = useContext(AuthContext);
+    const { createUser, googleSignIn, handleUpdateProfile } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
-    const [userImage, setUserImage] = useState('');
     const imgbbKey = process.env.REACT_APP_imgbb_key;
     const onSubmit = data => {
         const { email, password, role, name } = data;
-        const user = {
-            name,
-            password,
-            email,
-            role,
-            userImage
-
-        }
-        console.log(user);
-
         // Upload image in IMGBB 
         const img = data.image[0];
         const formData = new FormData();
@@ -32,27 +21,52 @@ const Signup = () => {
         })
             .then(res => res.json())
             .then(dataImg => {
-                const imageUrl = dataImg.data.url;
-                setUserImage(imageUrl);
+                console.log(dataImg);
+                if (dataImg.data.success) {
+                    const imageUrl = dataImg.data.url;
+                    const userDetails = {
+                        name,
+                        password,
+                        email,
+                        role,
+                        photoURL: imageUrl
+
+                    }
+                    const profile = {
+                        displayName: name,
+                        photoURL: imageUrl
+                    }
+                    // Sign Up with Email & Password
+                    createUser(email, password)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            console.log(user);
+                            handleUpdateProfile(profile)
+                                .then(() => {
+                                    console.log('Profile updated!');
+                                }).catch((error) => {
+                                    console.log(error);
+                                });
+                            toast.success('Succusfully SignUp');
+
+                        })
+                        .catch((error) => {
+                            const errorCode = error.code;
+                            const errorMessage = error.message;
+                            console.log(errorCode, errorMessage);
+                        });
+
+                }
             })
             .catch(error => console.log(error));
 
 
-        // Sign Up with Email & Password
-        createUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-                toast.success('Succusfully SignUp');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-            });
+
 
 
     };
+
+    
 
     // Google Signin
     const handleGoogleSignIn = () => {
