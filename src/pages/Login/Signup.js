@@ -22,12 +22,13 @@ const Signup = () => {
             .then(res => res.json())
             .then(dataImg => {
                 console.log(dataImg);
-                if(dataImg.success) {
+                if (dataImg.success) {
                     const imageUrl = dataImg.data.url;
                     const userDetails = {
                         name,
                         email,
                         role,
+                        photoURL: imageUrl
                     }
                     const profile = {
                         displayName: name,
@@ -46,24 +47,17 @@ const Signup = () => {
                                 });
                             saveUserDetails(userDetails)
                             toast.success('Succusfully SignUp');
-
                         })
                         .catch((error) => {
                             const errorCode = error.code;
                             const errorMessage = error.message;
                             console.log(errorCode, errorMessage);
                         });
-
                 }
             })
             .catch(error => console.log(error));
 
-
-
-
-
     };
-
     // Save user details to DB
     const saveUserDetails = details => {
         fetch(`http://localhost:5000/users`, {
@@ -130,7 +124,6 @@ const Signup = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" {...register("password")} className="input w-full input-bordered" />
-
                             </div>
                             <div className="form-control p-2 w-full">
                                 <label className="label">

@@ -1,0 +1,16 @@
+[
+    {
+        "name": "LCD TV",
+        "category_name": "LCD_TV"
+        
+    },
+    {   "name": "LED TV",
+        "category_name": "LED_TV"
+        
+    },
+    {   "name": "Plasma TV",
+        "category_name": "Plasma_TV"
+        
+    }
+
+]
