@@ -22,15 +22,12 @@ const Signup = () => {
             .then(res => res.json())
             .then(dataImg => {
                 console.log(dataImg);
-                if (dataImg.data.success) {
+                if(dataImg.success) {
                     const imageUrl = dataImg.data.url;
                     const userDetails = {
                         name,
-                        password,
                         email,
                         role,
-                        photoURL: imageUrl
-
                     }
                     const profile = {
                         displayName: name,
@@ -47,6 +44,7 @@ const Signup = () => {
                                 }).catch((error) => {
                                     console.log(error);
                                 });
+                            saveUserDetails(userDetails)
                             toast.success('Succusfully SignUp');
 
                         })
@@ -66,7 +64,24 @@ const Signup = () => {
 
     };
 
-    
+    // Save user details to DB
+    const saveUserDetails = details => {
+        fetch(`http://localhost:5000/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(details)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    console.log('Post Successfully');
+
+                }
+            })
+    }
 
     // Google Signin
     const handleGoogleSignIn = () => {
