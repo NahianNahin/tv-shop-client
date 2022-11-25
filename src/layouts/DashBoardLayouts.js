@@ -21,6 +21,7 @@ const DashBoardLayouts = () => {
                         <li><Link to='/dashboard/add_product' className='font-semibold'>Add Product</Link></li>
                         <li><Link to='/dashboard/all_seller' className='font-semibold'>All Sellers</Link></li>
                         <li><Link to='/dashboard/all_buyer' className='font-semibold'>All Buyers</Link></li>
+                        <li><Link to='/dashboard/my_product' className='font-semibold'>My Products</Link></li>
 
                     </ul>
 

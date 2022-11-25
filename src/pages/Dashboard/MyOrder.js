@@ -44,7 +44,7 @@ const MyOrder = () => {
                             <td>{booking.username}</td>
                             <td>
                                 <div className="avatar">
-                                    <div className="w-32 rounded">
+                                    <div className="w-20 rounded">
                                         <img src={booking.productImage} alt="Product" />
                                     </div>
                                 </div>

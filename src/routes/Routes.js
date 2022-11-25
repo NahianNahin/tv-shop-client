@@ -3,8 +3,10 @@ import DashBoardLayouts from "../layouts/DashBoardLayouts";
 import Main from "../layouts/Main";
 import Blogs from "../pages/Blogs/Blogs";
 import AddProduct from "../pages/Dashboard/AddProduct";
+import AllBuyer from "../pages/Dashboard/AllBuyer";
 import AllSeller from "../pages/Dashboard/AllSeller";
 import MyOrder from "../pages/Dashboard/MyOrder";
+import MyProduct from "../pages/Dashboard/MyProduct";
 import Error404 from "../pages/Error/Error404";
 import Home from "../pages/Home/Home";
 import ProductsEachCategory from "../pages/Home/ProductsEachCategory";
@@ -59,6 +61,14 @@ export const router = createBrowserRouter([
         {
             path: '/dashboard/all_seller',
             element: <AllSeller></AllSeller>
+        },
+        {
+            path: '/dashboard/all_buyer',
+            element: <AllBuyer></AllBuyer>
+        },
+        {
+            path: '/dashboard/my_product',
+            element: <MyProduct></MyProduct>
         },
         {
             path: '/dashboard/payment/:id',

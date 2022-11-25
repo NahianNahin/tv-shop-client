@@ -61,7 +61,8 @@ const AddProduct = () => {
                         productImage,
                         phone_number,
                         product_condition,
-                        details
+                        details,
+                        sellerEmail: user.email,
 
                     }
                     console.log(product);
