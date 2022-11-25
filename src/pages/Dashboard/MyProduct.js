@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 
 import LoodingSpinner from '../../components/LoadingSpinner'
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -14,7 +15,42 @@ const MyProduct = () => {
             return data;
         }
     })
-
+    //Add Advertised
+    const handleAddAdvertise = id => {
+        fetch(`http://localhost:5000/product/get_advertise/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('Add Advertised Successfully');
+                    refetch();
+                }
+            })
+            .catch(err => console.log(err))
+    }
+    //Remove Advertised
+    const handleRemoveAdvertise = id => {
+        fetch(`http://localhost:5000/product/remove_advertise/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('Remove Advertised Successfully');
+                    refetch();
+                }
+            })
+            .catch(err => console.log(err))
+    }
     if (isLoading) {
         return <LoodingSpinner></LoodingSpinner>
     }
@@ -38,7 +74,7 @@ const MyProduct = () => {
                     </thead>
                     <tbody>
 
-                        {products.map((product, i) => <tr>
+                        {products.map((product, i) => <tr key={i}>
                             <th>{i + 1}</th>
                             <td>
                                 <div className="avatar">
@@ -50,7 +86,23 @@ const MyProduct = () => {
                             <td><span className='font-bold'>{product.porduct_name}</span></td>
                             <td>{product.resale_price}</td>
                             <td>Available</td>
-                            <td><button className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>Advertised</button></td>
+                            <td>
+                                {
+                                    product?.advertised
+                                        ?
+                                        <button
+                                            onClick={() => handleRemoveAdvertise(product._id)}
+                                            className='btn border-0 btn-sm m-4 text-white font-bold'>
+                                            Remove Advertised
+                                        </button>
+                                        :
+                                        <button
+                                            onClick={() => handleAddAdvertise(product._id)}
+                                            className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>
+                                            Add Advertised
+                                        </button>
+                                }
+                            </td>
 
                         </tr>)}
 

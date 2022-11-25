@@ -21,8 +21,8 @@ const ProductCard = ({ product, setselectProduct }) => {
             <div className="hero-content flex-col lg:flex-row-reverse my-20">
                 <img src={productImage} className="lg:w-1/2 rounded-lg shadow-2xl" alt='chair' />
                 <div className='mt-10'>
-                    <h1 className="text-4xl font-bold text-blue-700">{porduct_name}</h1>
-                    <p className='my-2'>
+                    <h1 className="text-5xl font-semibold ">{porduct_name}</h1>
+                    <p className='my-4'>
                         <span className='mr-2'><span className='font-bold'>Location : </span>{location} </span>
                         <span className='mr-2'><span className='font-bold'>Resale Price : </span>{resale_price} TK </span>
                         <span className='mr-2'><span className='font-bold'>Orginal Price : </span>{orginal_price} TK </span>
@@ -44,6 +44,7 @@ const ProductCard = ({ product, setselectProduct }) => {
                         className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
                         Book Now
                     </label>
+                    <button className='btn text-accent ml-3'>Add to Wishlist</button>
                 </div>
             </div>
 

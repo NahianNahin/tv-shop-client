@@ -49,7 +49,7 @@ const AllSeller = () => {
                     </thead>
                     <tbody>
 
-                        {users.map((user, i) => <tr>
+                        {users.map((user, i) => <tr key={i}>
                             <th>{i + 1}</th>
                             <td>
                                 <div className="avatar">

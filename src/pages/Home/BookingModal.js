@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 
-const BookingModal = ({ selectProduct, refreshPage }) => {
+const BookingModal = ({ selectProduct, action }) => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
     const {
@@ -23,7 +23,7 @@ const BookingModal = ({ selectProduct, refreshPage }) => {
                 if (data.acknowledged) {
                     console.log('Post Successfully');
                     toast.success('Booking successfully');
-                    refreshPage();
+                    action();
                 }
             })
 
@@ -34,7 +34,7 @@ const BookingModal = ({ selectProduct, refreshPage }) => {
             <input type="checkbox" id="booking_modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label onClick={() => refreshPage()} htmlFor="booking_modal" className="btn btn-outline btn-primary btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={()=> action()} htmlFor="booking_modal" className="btn btn-outline btn-primary btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
                     <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
                     <form onSubmit={handleSubmit(onSubmit)}>

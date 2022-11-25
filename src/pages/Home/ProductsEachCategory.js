@@ -29,7 +29,7 @@ const ProductsEachCategory = () => {
                 selectProduct &&
                 <BookingModal
                     selectProduct={selectProduct}
-                    refreshPage={refreshPage}
+                    action={refreshPage}
                 ></BookingModal>
             }
         </div>

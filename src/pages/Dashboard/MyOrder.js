@@ -39,7 +39,7 @@ const MyOrder = () => {
                     </thead>
                     <tbody>
 
-                        {bookings.map((booking, i) => <tr>
+                        {bookings.map((booking, i) => <tr key={i}>
                             <th>{i + 1}</th>
                             <td>{booking.username}</td>
                             <td>
