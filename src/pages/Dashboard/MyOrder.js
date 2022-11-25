@@ -6,6 +6,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const MyOrder = () => {
     const { user } = useContext(AuthContext);
+    console.log(user);
     // Queries
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
@@ -21,7 +22,7 @@ const MyOrder = () => {
     }
     return (
         <div className='p-20'>
-            <p className='text-3xl'>My Appointment</p>
+            <p className='text-3xl'>My Orders</p>
             <div className="overflow-x-auto mt-10">
                 <table className="table w-full">
 
@@ -29,6 +30,7 @@ const MyOrder = () => {
                         <tr>
                             <th>SL NO.</th>
                             <th>Name</th>
+                            <th>Avatar</th>
                             <th>Items</th>
                             <th>Meeting Location</th>
                             <th>Price</th>
@@ -40,6 +42,13 @@ const MyOrder = () => {
                         {bookings.map((booking, i) => <tr>
                             <th>{i + 1}</th>
                             <td>{booking.username}</td>
+                            <td>
+                                <div className="avatar">
+                                    <div className="w-32 rounded">
+                                        <img src={booking.productImage} alt="Product" />
+                                    </div>
+                                </div>
+                            </td>
                             <td>{booking.porduct_name}</td>
                             <td>{booking.meeting_location}</td>
                             <td>{booking.price} TK</td>
@@ -47,7 +56,7 @@ const MyOrder = () => {
                                 ?
                                 <p className='font-bold'>Paid</p>
                                 :
-                                <Link>
+                                <Link to={`/dashboard/payment/${booking._id}`}>
                                     <button
                                         className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>
                                         Pay
