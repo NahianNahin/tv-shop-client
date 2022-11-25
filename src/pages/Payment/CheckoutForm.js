@@ -98,7 +98,7 @@ const CheckoutForm = ({ item }) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-            <p className='text-xl font-bold mb-5'>Payment With Stripe</p>
+                <p className='text-xl font-bold mb-5'>Payment With Stripe</p>
                 <CardElement
                     options={{
                         style: {

@@ -51,7 +51,7 @@ const MyOrder = () => {
                             </td>
                             <td>{booking.porduct_name}</td>
                             <td>{booking.meeting_location}</td>
-                            <td>{booking.price} TK</td>
+                            <td><span className='font-bold'>{booking.price} TK</span></td>
                             <td>{booking?.paid
                                 ?
                                 <p className='font-bold'>Paid</p>
