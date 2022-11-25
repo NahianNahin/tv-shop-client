@@ -52,10 +52,53 @@ const CheckoutForm = ({ item }) => {
         }
         setCardSuccess('');
         setCardLoading(true);
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: username,
+                        email: email
+                    },
+                },
+            },
+        );
+
+        if (confirmError) {
+            setCardError(confirmError.message)
+            return;
+        }
+        if (paymentIntent.status === 'succeeded') {
+            console.log('card info', card);
+            const payment = {
+                username,
+                price,
+                email,
+                bookingId: _id,
+                transationId: paymentIntent.id,
+
+            }
+
+            fetch('http://localhost:5000/payments', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setCardSuccess('Payment success');
+                    setCardTransation(paymentIntent.id);
+                    setCardLoading(false);
+                })
+        }
     }
     return (
         <>
             <form onSubmit={handleSubmit}>
+            <p className='text-xl font-bold mb-5'>Payment With Stripe</p>
                 <CardElement
                     options={{
                         style: {
@@ -75,14 +118,14 @@ const CheckoutForm = ({ item }) => {
                 <button
                     className='btn mt-5 btn-sm bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0'
                     type="submit"
-                    disabled={!stripe}>
+                    disabled={!stripe || !clientSecret || cardLoading}>
                     Pay
                 </button>
             </form>
-            <p className='text-error p-3'>{cardError}</p>
-            <p className='text-primary p-3'>{cardSuccess}</p>
+            <p className='text-error py-3 text-xl'>{cardError}</p>
+            <p className='p-3 text-xl text-success font-bold'>{cardSuccess}</p>
             {
-                cardSuccess && <p>Transation Id : {cardTransation}</p>
+                cardSuccess && <p><span className='font-bold'>Transation Id :</span> {cardTransation}</p>
             }
         </>
     );

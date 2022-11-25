@@ -10,8 +10,8 @@ const Payment = () => {
     console.log(item);
     return (
         <div className='m-20'>
-            <p className='text-3xl mb-5'>Payment</p>
-            <p>Hello <span className='font-bold'>{item.username}</span></p>
+            <p className='text-5xl mb-5'>Payment</p>
+            <p className='text-2xl mb-3'>Hello <span className='font-bold'>{item.username}</span></p>
             <p>Please, pay <span className='font-bold'>{item.price} TK</span> for your Selected Items <span className='font-bold'>{item.porduct_name}</span></p>
             <div className='w-96 m-5 p-10 shadow-md bg-base-100 rounded-md'>
                 <Elements stripe={stripePromise}>
