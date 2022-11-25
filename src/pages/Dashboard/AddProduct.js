@@ -181,7 +181,8 @@ const AddProduct = () => {
                             {...register("details")}
                             className="textarea textarea-primary w-full mb-3"
                             placeholder="Details"
-                            required></textarea>
+                            required>
+                        </textarea>
                         <button
                             className='btn bg-gradient-to-r from-primary to-secondary w-full text-[16px] mb-2 text-white font-bold'>
                             ADD product

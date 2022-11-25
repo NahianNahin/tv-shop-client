@@ -5,6 +5,7 @@ import Blogs from "../pages/Blogs/Blogs";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import Error404 from "../pages/Error/Error404";
 import Home from "../pages/Home/Home";
+import ProductsEachCategory from "../pages/Home/ProductsEachCategory";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Login/Signup";
 
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
         {
             path: '/signup',
             element: <Signup></Signup>
+        },
+        {
+            path: `/catagories/:id`,
+            element: <ProductsEachCategory></ProductsEachCategory>,
+            loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`)
         },
         {
             path: '/*',
