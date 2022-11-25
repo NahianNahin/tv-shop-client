@@ -65,6 +65,7 @@ const AddProduct = () => {
 
                     }
                     console.log(product);
+                    // POST
                     fetch(`http://localhost:5000/products`, {
                         method: 'POST',
                         headers: {

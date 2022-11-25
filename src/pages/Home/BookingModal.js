@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const BookingModal = ({ selectProduct, refreshPage }) => {
@@ -8,8 +9,23 @@ const BookingModal = ({ selectProduct, refreshPage }) => {
     const {
         porduct_name, resale_price, } = selectProduct;
     const onSubmit = data => {
-        console.log(data);
-        refreshPage();
+        fetch(`http://localhost:5000/bookings`, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.acknowledged) {
+                                console.log('Post Successfully');
+                                toast.success('Booking successfully');
+                                refreshPage();
+                            }
+                        })
+        
     }
     return (
         <div>
@@ -17,7 +33,7 @@ const BookingModal = ({ selectProduct, refreshPage }) => {
             <input type="checkbox" id="booking_modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label htmlFor="booking_modal" className="btn btn-outline btn-primary btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={()=>refreshPage()} htmlFor="booking_modal" className="btn btn-outline btn-primary btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
                     <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +64,7 @@ const BookingModal = ({ selectProduct, refreshPage }) => {
                                 <label className="label">
                                     <span className="label-text">User Email</span>
                                 </label>
-                                <input type="email" {...register("orginal_price")} defaultValue={user.email} className="input w-full input-bordered" readOnly />
+                                <input type="email" {...register("email")} defaultValue={user.email} className="input w-full input-bordered" readOnly />
                             </div>
 
                         </div>

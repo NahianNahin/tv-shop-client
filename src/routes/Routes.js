@@ -3,6 +3,7 @@ import DashBoardLayouts from "../layouts/DashBoardLayouts";
 import Main from "../layouts/Main";
 import Blogs from "../pages/Blogs/Blogs";
 import AddProduct from "../pages/Dashboard/AddProduct";
+import MyOrder from "../pages/Dashboard/MyOrder";
 import Error404 from "../pages/Error/Error404";
 import Home from "../pages/Home/Home";
 import ProductsEachCategory from "../pages/Home/ProductsEachCategory";
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
     children: [
         {
             path: '/dashboard',
+            element: <MyOrder></MyOrder>
+        },
+        {
+            path: '/dashboard/add_product',
             element: <AddProduct></AddProduct>
         }
     ]
