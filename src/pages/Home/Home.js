@@ -1,11 +1,16 @@
 import React from 'react';
-
-import LoadingSpinner from '../../components/LoadingSpinner';
+import Advertisement from './Advertisement';
+import Banner from './Banner';
+import Categories from './Categories';
+import Discount from './Discount';
 
 const Home = () => {
     return (
         <div>
-            <LoadingSpinner></LoadingSpinner>
+            <Banner></Banner>
+            <Advertisement></Advertisement>
+            <Categories></Categories>
+            <Discount></Discount>
         </div>
     );
 };
