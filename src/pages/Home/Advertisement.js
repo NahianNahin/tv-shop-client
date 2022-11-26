@@ -1,11 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoodingSpinner from '../../components/LoadingSpinner'
 import ProductCard from '../../components/ProductCard';
+import { AuthContext } from '../../contexts/AuthProvider';
 import BookingModal from './BookingModal';
 const Advertisement = () => {
+    const { user } = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    const refreshPage = () => {
+        navigate(0);
+    }
     const [selectProduct, setselectProduct] = useState(null);
-    const { data: advertise_products = [], isLoading, refetch } = useQuery({
+    const { data: advertise_products = [], isLoading } = useQuery({
         queryKey: ['advertise_products'],
 
         queryFn: async () => {
@@ -21,7 +29,7 @@ const Advertisement = () => {
     return (
         <div>
             {
-                advertise_products.length !== 0
+                advertise_products.length !== 0 && user?.uid
                 &&
                 <>
                     <h1 className='text-primary text-xl font-bold text-center'>ADVERTISEMENT</h1>
@@ -39,7 +47,8 @@ const Advertisement = () => {
                         selectProduct &&
                         <BookingModal
                             selectProduct={selectProduct}
-                            action={refetch}
+                            setselectProduct={setselectProduct}
+                            action={refreshPage}
                         ></BookingModal>
                     }
                 </>

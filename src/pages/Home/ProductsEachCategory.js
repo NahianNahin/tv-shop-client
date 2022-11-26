@@ -29,6 +29,7 @@ const ProductsEachCategory = () => {
                 selectProduct &&
                 <BookingModal
                     selectProduct={selectProduct}
+                    setselectProduct={setselectProduct}
                     action={refreshPage}
                 ></BookingModal>
             }

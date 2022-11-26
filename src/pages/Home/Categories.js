@@ -1,13 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Category from './Category';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
-    axios.get(`http://localhost:5000/categories`)
-        .then(res => setCategories(res.data))
-        .catch(err => console.log(err))
-    console.log(categories);
+    useEffect(() => {
+        axios.get(`http://localhost:5000/categories`)
+            .then(res => setCategories(res.data))
+            .catch(err => console.log(err))
+            
+    }, [])
     return (
         <div className='my-10'>
             <h1 className='text-primary text-xl font-bold text-center'>CATEGORIES</h1>
