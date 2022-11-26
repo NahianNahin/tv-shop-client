@@ -1,9 +1,11 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
 
 
-const ProductCard = ({ product, setselectProduct }) => {
+const ProductCard = ({ product, setselectProduct, refreshPage }) => {
     const {
+        _id,
         porduct_name,
         productImage,
         details,
@@ -16,6 +18,25 @@ const ProductCard = ({ product, setselectProduct }) => {
         phone_number,
         product_condition
     } = product;
+
+    //Add Report
+    const handleAddReport = id => {
+        fetch(`http://localhost:5000/product/add_reported/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('Add Report Successfully');
+                    refreshPage();
+                }
+            })
+            .catch(err => console.log(err))
+    }
     return (
         <div className="hero" >
             <div className="hero-content flex-col lg:flex-row-reverse my-20">
@@ -44,7 +65,13 @@ const ProductCard = ({ product, setselectProduct }) => {
                         className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
                         Book Now
                     </label>
-                    <button className='btn text-accent ml-3'>Add to Wishlist</button>
+                    {
+                        product?.reported 
+                        ? 
+                        <span className='text-xl ml-3 font-bold '>Reported</span>
+                        :
+                        <button onClick={() => handleAddReport(_id)} className='btn text-accent ml-3'>Add Report</button>
+                    }
                 </div>
             </div>
 

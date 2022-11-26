@@ -22,6 +22,7 @@ const ProductsEachCategory = () => {
                         key={product._id} 
                         product={product}
                         setselectProduct={setselectProduct}
+                        refreshPage={refreshPage}
                         ></ProductCard>)
                 }
             </div>
