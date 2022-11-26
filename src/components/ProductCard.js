@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthProvider';
 
 
 
 const ProductCard = ({ product, setselectProduct, refreshPage }) => {
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const {
         _id,
         porduct_name,
@@ -59,18 +63,28 @@ const ProductCard = ({ product, setselectProduct, refreshPage }) => {
                         <span className='mr-2'><span className='font-bold'>Product Condition : </span>{product_condition}</span>
 
                     </p>
-                    <label
-                        onClick={() => { setselectProduct(product) }}
-                        htmlFor="booking_modal"
-                        className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
-                        Book Now
-                    </label>
                     {
-                        product?.reported 
-                        ? 
-                        <span className='text-xl ml-3 font-bold '>Reported</span>
-                        :
-                        <button onClick={() => handleAddReport(_id)} className='btn text-accent ml-3'>Add Report</button>
+                        user?.uid
+                            ?
+                            <label
+                                onClick={() =>  setselectProduct(product) }
+                                htmlFor="booking_modal"
+                                className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
+                                Book Now
+                            </label>
+                            :
+                            <label
+                                onClick={() =>  navigate('/login') }
+                                className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
+                                Book Now
+                            </label>
+                    }
+                    {
+                        product?.reported
+                            ?
+                            <span className='text-xl ml-10 font-bold italic'>Reported</span>
+                            :
+                            <button onClick={() => handleAddReport(_id)} className='btn text-accent ml-3' disabled={!user?.uid}>Add Report</button>
                     }
                 </div>
             </div>

@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const { signIn, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
+    let from = location.state?.from?.pathname || "/";
     const onSubmit = data => {
         const { email, password } = data;
         console.log(email, password);
@@ -17,6 +20,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log(user);
                 toast.success('Succusfully SignIn');
+                navigate(from, { replace: true });
 
             })
             .catch((error) => {
@@ -34,6 +38,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log(user);
                 toast.success('Succusfully SignIn');
+                navigate(from, { replace: true });
 
 
             })

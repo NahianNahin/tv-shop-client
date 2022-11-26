@@ -14,6 +14,7 @@ import ProductsEachCategory from "../pages/Home/ProductsEachCategory";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Login/Signup";
 import Payment from "../pages/Payment/Payment";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
 {
@@ -49,31 +50,31 @@ export const router = createBrowserRouter([
 },
 {
     path: '/dashboard',
-    element: <DashBoardLayouts></DashBoardLayouts>,
+    element: <PrivateRoute><DashBoardLayouts></DashBoardLayouts></PrivateRoute>,
     children: [
         {
             path: '/dashboard',
-            element: <MyOrder></MyOrder>
+            element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
         },
         {
             path: '/dashboard/add_product',
-            element: <AddProduct></AddProduct>
+            element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
         },
         {
             path: '/dashboard/all_seller',
-            element: <AllSeller></AllSeller>
+            element: <PrivateRoute><AllSeller></AllSeller></PrivateRoute>
         },
         {
             path: '/dashboard/all_buyer',
-            element: <AllBuyer></AllBuyer>
+            element: <PrivateRoute><AllBuyer></AllBuyer></PrivateRoute>
         },
         {
             path: '/dashboard/my_product',
-            element: <MyProduct></MyProduct>
+            element: <PrivateRoute><MyProduct></MyProduct></PrivateRoute>
         },
         {
             path: '/dashboard/reported_item',
-            element: <ReportedItems></ReportedItems>
+            element: <PrivateRoute><ReportedItems></ReportedItems></PrivateRoute>
         },
         {
             path: '/dashboard/payment/:id',
