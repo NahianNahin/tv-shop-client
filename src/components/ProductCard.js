@@ -44,7 +44,11 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
     return (
         <div className="hero" >
             <div className="hero-content flex-col lg:flex-row-reverse my-20">
-                <img src={productImage} className="lg:w-1/2 rounded-lg shadow-2xl" alt='chair' />
+                <div className="avatar">
+                    <div className="w-[30rem] rounded shadow-sm">
+                        <img src={productImage} alt="Product" />
+                    </div>
+                </div>
                 <div className='mt-10'>
                     <h1 className="text-5xl font-semibold ">{porduct_name}</h1>
                     <p className='my-4'>
@@ -67,14 +71,14 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
                         user?.uid
                             ?
                             <label
-                                onClick={() =>  setselectProduct(product) }
+                                onClick={() => setselectProduct(product)}
                                 htmlFor="booking_modal"
                                 className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
                                 Book Now
                             </label>
                             :
                             <label
-                                onClick={() =>  navigate('/login') }
+                                onClick={() => navigate('/login')}
                                 className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
                                 Book Now
                             </label>
