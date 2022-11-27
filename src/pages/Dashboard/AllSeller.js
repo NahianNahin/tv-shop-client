@@ -5,9 +5,9 @@ import LoodingSpinner from '../../components/LoadingSpinner'
 const AllSeller = () => {
     // Queries
     const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['Seller'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?role=Seller`,{
+            const res = await fetch(`http://localhost:5000/users_role?role=Seller`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }

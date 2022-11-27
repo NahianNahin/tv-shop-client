@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
+import useBuyer from '../hooks/useBuyer';
+import useSeller from '../hooks/useSeller';
 import Header from '../shared/Header';
 
 const DashBoardLayouts = () => {
     const { user } = useContext(AuthContext);
     const [isAdmin] = useAdmin(user?.email);
+    const [isBuyer] = useBuyer(user?.email);
+    const [isSeller] = useSeller(user?.email);
     return (
         <div>
             <Header></Header>
@@ -21,9 +25,21 @@ const DashBoardLayouts = () => {
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                         <li><Link to='/dashboard' className='font-semibold'>Profile</Link></li>
-                        <li><Link to='/dashboard/my_order' className='font-semibold'>My Order</Link></li>
-                        <li><Link to='/dashboard/add_product' className='font-semibold'>Add Product</Link></li>
-                        <li><Link to='/dashboard/my_product' className='font-semibold'>My Products</Link></li>
+                        {
+                            isBuyer
+                            &&
+                            <>
+                                <li><Link to='/dashboard/my_order' className='font-semibold'>My Order</Link></li>
+                            </>
+                        }
+                        {
+                            isSeller
+                            &&
+                            <>
+                                <li><Link to='/dashboard/add_product' className='font-semibold'>Add Product</Link></li>
+                                <li><Link to='/dashboard/my_product' className='font-semibold'>My Products</Link></li>
+                            </>
+                        }
                         {
                             isAdmin
                             &&
