@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/AuthProvider';
 
 
 
-const ProductCard = ({ product, setselectProduct, refreshPage }) => {
+const ProductCard = ({ product, setselectProduct, refetch }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const {
@@ -36,7 +36,7 @@ const ProductCard = ({ product, setselectProduct, refreshPage }) => {
                 console.log(data);
                 if (data.acknowledged) {
                     toast.success('Add Report Successfully');
-                    refreshPage();
+                    refetch();
                 }
             })
             .catch(err => console.log(err))
