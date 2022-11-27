@@ -37,7 +37,7 @@ const Profile = () => {
                         <h1 className="text-5xl font-bold my-5">Dear, {profileUser.role}</h1>
                         <h1 className="text-2xl font-semibold"> Name : {user.displayName}</h1>
                         <h1 className="text-2xl font-semibold"> Email : {user.email}</h1>
-                        <p className="py-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the</p>
+                        <p className="py-6">Hello there, Welcome to our store. We are providing Resale Products basically TV set with a very low cost. Seller are aslo welcome to sell there products.</p>
                         <PrimaryButton>Get Started</PrimaryButton>
                     </div>
                 </div>

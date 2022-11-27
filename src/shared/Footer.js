@@ -1,32 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import { AuthContext } from '../contexts/AuthProvider';
+
 
 const Footer = () => {
+    const { logout, user } = useContext(AuthContext);
     return (
-        <div >
-            <footer className="footer py-10 px-30">
-                <div className='pl-28'>
-                    <span className="footer-title">Services</span>
-                    <Link className="link link-hover">Branding</Link>
-                    <Link className="link link-hover">Design</Link>
-                    <Link className="link link-hover">Marketing</Link>
-                    <Link className="link link-hover">Advertisement</Link>
-                </div>
-                <div className='pl-28'>
-                    <span className="footer-title">Company</span>
-                    <Link className="link link-hover">About us</Link>
-                    <Link className="link link-hover">Contact</Link>
-                    <Link className="link link-hover">Jobs</Link>
-                    <Link className="link link-hover">Press kit</Link>
-                </div>
-                <div className='pl-28'>
-                    <span className="footer-title">Legal</span>
-                    <Link className="link link-hover">Terms of use</Link>
-                    <Link className="link link-hover">Privacy policy</Link>
-                    <Link className="link link-hover">Cookie policy</Link>
-                </div>
-            </footer>
-        </div>
+        <footer className="footer items-center p-4  bg-white text-black border-t-2 pt-10 pl-20 mb-20">
+            <div className="">
+                <img src={logo} alt="" className='w-auto h-20 -ml-10' />
+                <p><span className='text-lg font-semibold'>TV <span className='text-primary font-bold'>Shop</span></span><br />Providing Services since 2018</p>
+                <p>Copyright © 2022 - All right reserved</p>
+            </div>
+            <div>
+                <span className="footer-title">Pages</span>
+                <Link to='/' className="link link-hover">Home</Link>
+                <Link to='/all_products' className="link link-hover">All Products</Link>
+                <Link to='/dashboard' className="link link-hover">Dashboard</Link>
+                <Link to='/blogs' className="link link-hover">Blogs</Link>
+            </div>
+            <div>
+                <span className="footer-title">Important Links</span>
+                {!user?.uid
+                    ?
+                    <>
+                        <Link to='/signup' className="link link-hover">Sign Up</Link>
+                        <Link to='/login' className="link link-hover">Log In</Link>
+                    </>
+                    :
+                    <Link ><button className="" onClick={logout}>Sign Out</button></Link>
+                }
+
+
+            </div>
+        </footer>
     );
 };
 

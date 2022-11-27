@@ -10,7 +10,7 @@ import { router } from './routes/Routes';
 
 function App() {
   return (
-    <div className='max-w-[1440px] mx-auto'>
+    <div className='max-w-[1500px] mx-auto'>
       <RouterProvider router={router}></RouterProvider>
       <Toaster
         position="top-center"

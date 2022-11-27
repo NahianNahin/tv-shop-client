@@ -10,7 +10,7 @@ const MyProduct = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products?email=${user?.email}`, {
+            const res = await fetch(`http://localhost:5000/seller_products?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -57,6 +57,44 @@ const MyProduct = () => {
             })
             .catch(err => console.log(err))
     }
+    //Sold
+    const handleAddSold = id => {
+        fetch(`http://localhost:5000/product/sold_status/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('Status Change Successfully');
+                    refetch();
+                }
+            })
+            .catch(err => console.log(err))
+    }
+    //Sold
+    const handleAddUnsold = id => {
+        fetch(`http://localhost:5000/product/unsold_status/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('Status Change Successfully');
+                    refetch();
+                }
+            })
+            .catch(err => console.log(err))
+    }
     if (isLoading) {
         return <LoodingSpinner></LoodingSpinner>
     }
@@ -72,8 +110,9 @@ const MyProduct = () => {
                             <th>Avatar</th>
                             <th>Product Name</th>
                             <th>Price</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Change Status</th>
+                            <th> Status</th>
+                            <th><p className='text-center'>Action</p></th>
 
 
                         </tr>
@@ -90,21 +129,47 @@ const MyProduct = () => {
                                 </div>
                             </td>
                             <td><span className='font-bold'>{product.porduct_name}</span></td>
-                            <td>{product.resale_price}</td>
-                            <td>Available</td>
+                            <td>{product.resale_price} TK</td>
+                            <td>
+                                {
+                                    product?.sold
+                                        ?
+                                        <button
+                                            onClick={() => handleAddUnsold(product._id)}
+                                            className='btn btn-sm btn-success font-bold btn-outline'>
+                                            Available
+                                        </button>
+                                        :
+                                        <button
+                                            onClick={() => handleAddSold(product._id)}
+                                            className='btn btn-sm btn-error font-bold btn-outline'>
+                                            Sold
+                                        </button>
+
+                                }
+                            </td>
+                            <td>
+                                {
+                                    product?.sold
+                                        ?
+                                        <span className='font-bold'>Sold</span>
+                                        :
+                                        <span>Available</span>
+                                }
+                            </td>
                             <td>
                                 {
                                     product?.advertised
                                         ?
                                         <button
                                             onClick={() => handleRemoveAdvertise(product._id)}
-                                            className='btn border-0 btn-sm m-4 text-white font-bold'>
+                                            className='btn border-0 btn-sm  text-white font-bold'>
                                             Remove Advertised
                                         </button>
                                         :
                                         <button
                                             onClick={() => handleAddAdvertise(product._id)}
-                                            className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm m-4 text-white font-bold'>
+                                            className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm  text-white font-bold'>
                                             Add Advertised
                                         </button>
                                 }

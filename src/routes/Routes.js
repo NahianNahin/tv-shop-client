@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayouts from "../layouts/DashBoardLayouts";
 import Main from "../layouts/Main";
+import AllProducts from "../pages/AllProducts/AllProducts";
 import Blogs from "../pages/Blogs/Blogs";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import AllBuyer from "../pages/Dashboard/AllBuyer";
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/all_products',
+                element: <AllProducts></AllProducts>
             },
             {
                 path: '/blogs',
@@ -87,7 +92,11 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <BuyerRoutes><Payment></Payment></BuyerRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`,{
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+                    }
+                })
             }
         ]
     }
