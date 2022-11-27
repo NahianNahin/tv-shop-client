@@ -14,6 +14,7 @@ const BookingModal = ({ selectProduct, refetch, setselectProduct }) => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
             body: JSON.stringify(newData),
         })

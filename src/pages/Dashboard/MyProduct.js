@@ -10,7 +10,11 @@ const MyProduct = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/products?email=${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
@@ -20,7 +24,8 @@ const MyProduct = () => {
         fetch(`http://localhost:5000/product/get_advertise/${id}`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
         })
             .then(res => res.json())
@@ -38,7 +43,8 @@ const MyProduct = () => {
         fetch(`http://localhost:5000/product/remove_advertise/${id}`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
         })
             .then(res => res.json())

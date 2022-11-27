@@ -9,9 +9,12 @@ const Advertisement = () => {
     const [selectProduct, setselectProduct] = useState(null);
     const { data: advertise_products = [], isLoading ,refetch} = useQuery({
         queryKey: ['advertise_products'],
-
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/advertise_products`);
+            const res = await fetch(`http://localhost:5000/advertise_products`,{
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+                },
+            });
             const data = await res.json();
             return data;
         }

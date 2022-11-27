@@ -13,7 +13,11 @@ const ProductsEachCategory = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products/${id}`);
+            const res = await fetch(`http://localhost:5000/products/${id}`,{
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+                },
+            });
             const data = await res.json();
             return data;
         }

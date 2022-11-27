@@ -18,6 +18,7 @@ const CheckoutForm = ({ item }) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
             body: JSON.stringify({ price }),
         })
@@ -84,6 +85,7 @@ const CheckoutForm = ({ item }) => {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 },
                 body: JSON.stringify(payment)
             })

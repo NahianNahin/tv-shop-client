@@ -28,7 +28,8 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
         fetch(`http://localhost:5000/product/add_reported/${id}`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
         })
             .then(res => res.json())
