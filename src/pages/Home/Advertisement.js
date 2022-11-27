@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import LoodingSpinner from '../../components/LoadingSpinner'
 import ProductCard from '../../components/ProductCard';
-import { AuthContext } from '../../contexts/AuthProvider';
 import BookingModal from './BookingModal';
 const Advertisement = () => {
-    const { user } = useContext(AuthContext)
     const [selectProduct, setselectProduct] = useState(null);
     const { data: advertise_products = [], isLoading ,refetch} = useQuery({
         queryKey: ['advertise_products'],
@@ -26,7 +24,7 @@ const Advertisement = () => {
     return (
         <div>
             {
-                advertise_products.length !== 0 && user?.uid
+                advertise_products.length !== 0 
                 &&
                 <>
                     <h1 className='text-primary text-xl font-bold text-center'>ADVERTISEMENT</h1>

@@ -7,8 +7,9 @@ const Header = () => {
     const { logOut, user } = useContext(AuthContext)
     const allMenus = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/blogs'>Blogs</Link></li>
         <li><Link to='/dashboard'>Dashboard</Link></li>
+        <li><Link to='/blogs'>Blogs</Link></li>
+        
         {
             user && user?.uid
                 ?
@@ -23,7 +24,7 @@ const Header = () => {
 
     </>
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">

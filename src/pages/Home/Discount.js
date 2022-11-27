@@ -3,7 +3,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import showing from '../../assets/showing.png'
 const Discount = () => {
     return (
-        <section className='bg-neutral'>
+        <section className='bg-neutral rounded-md'>
                 <div className="mx-20 text-white">
                     <div className="flex items-center  flex-col lg:flex-row my-40 gap-20 ">
                         <img src={showing} className=" rounded-lg shadow-2xl -mb-5 hidden lg:block" alt='chair' />

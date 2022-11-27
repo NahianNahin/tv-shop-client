@@ -49,7 +49,8 @@ const AllSeller = () => {
                             <th>Avatar</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>Approve</th>
+                            <th>Status</th>
                             <th>Action</th>
 
                         </tr>
@@ -67,7 +68,8 @@ const AllSeller = () => {
                             </td>
                             <td><span className='font-bold'>{user.name}</span></td>
                             <td>{user.email}</td>
-                            <td>{user.role}</td>
+                            <td><button className='btn btn-sm text-accent font-bold'>verify</button></td>
+                            <td>unverified</td>
                             <td>
                                 <button onClick={()=> handleDeleteUser(user._id)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-error">

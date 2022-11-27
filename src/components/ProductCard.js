@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useBuyer from '../hooks/useBuyer';
 
 
 
 const ProductCard = ({ product, setselectProduct, refetch }) => {
-    const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    const [isBuyer] = useBuyer(user?.email);
+    const navigate = useNavigate();
     const {
         _id,
         porduct_name,
@@ -71,12 +73,18 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
                     {
                         user?.uid
                             ?
-                            <label
-                                onClick={() => setselectProduct(product)}
-                                htmlFor="booking_modal"
-                                className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
-                                Book Now
-                            </label>
+                            <>
+                                {
+                                    isBuyer
+                                    &&
+                                    <label
+                                        onClick={() => setselectProduct(product)}
+                                        htmlFor="booking_modal"
+                                        className="btn bg-gradient-to-r from-primary to-secondary border-0 text-base-100 rounded-0">
+                                        Book Now
+                                    </label>
+                                }
+                            </>
                             :
                             <label
                                 onClick={() => navigate('/login')}
@@ -87,9 +95,13 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
                     {
                         product?.reported
                             ?
-                            <span className='text-xl ml-10 font-bold italic'>Reported</span>
+                            <>
+                            {isBuyer && <span className='text-xl ml-10 font-bold italic'>Reported</span>}
+                            </>
                             :
-                            <button onClick={() => handleAddReport(_id)} className='btn text-accent ml-3' disabled={!user?.uid}>Add Report</button>
+                            <>
+                            {user?.uid && isBuyer && <button onClick={() => handleAddReport(_id)} className='btn text-accent ml-3' >Add Report</button>}
+                            </>
                     }
                 </div>
             </div>
