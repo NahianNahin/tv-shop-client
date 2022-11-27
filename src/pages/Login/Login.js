@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 
 const Login = () => {
@@ -10,7 +11,13 @@ const Login = () => {
     const location = useLocation();
     const { signIn, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
+    const [loginEmail, setLoginEmail] = useState('');
+    const [token] = useToken(loginEmail)
     let from = location.state?.from?.pathname || "/";
+    if (token) {
+        navigate(from, { replace: true });
+
+    }
     const onSubmit = data => {
         const { email, password } = data;
         console.log(email, password);
@@ -20,7 +27,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log(user);
                 toast.success('Succusfully SignIn');
-                navigate(from, { replace: true });
+                setLoginEmail(user.email);
 
             })
             .catch((error) => {
@@ -30,15 +37,40 @@ const Login = () => {
             });
 
     };
-
+      // Save user details to DB
+      const saveUserDetails = (details, email) => {
+        fetch(`http://localhost:5000/users?email=${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+            },
+            body: JSON.stringify(details)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    setLoginEmail(email)
+                    console.log('Post Successfully');
+                }
+            })
+    }
     // Google SignIn
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                const detail = {
+                    name: user.displayName,
+                    email: user.email,
+                    role: 'Buyer',
+                    photoURL: user.photoURL
+                }
+                saveUserDetails(detail, user.email)
                 toast.success('Succusfully SignIn');
-                navigate(from, { replace: true });
+                
 
 
             })

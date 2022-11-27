@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         signOut(auth).then(() => {
             toast.success('Sign-out successful.')
+            localStorage.removeItem('TV_Shop_Token');
         }).catch((error) => {
             console.log(error);
         });

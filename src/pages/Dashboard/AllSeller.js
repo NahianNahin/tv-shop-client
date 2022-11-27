@@ -7,7 +7,11 @@ const AllSeller = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?role=Seller`);
+            const res = await fetch(`http://localhost:5000/users?role=Seller`,{
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
@@ -16,6 +20,9 @@ const AllSeller = () => {
     const handleDeleteUser = id => {
         fetch(`http://localhost:5000/users/${id}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

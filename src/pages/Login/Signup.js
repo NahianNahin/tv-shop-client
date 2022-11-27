@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
+    const navigate = useNavigate();
     const { createUser, googleSignIn, handleUpdateProfile } = useContext(AuthContext);
+    const [signupEmail,setSignupEmail] = useState('');
+    const [token] = useToken(signupEmail);
+    if(token){
+        navigate('/')
+    }
     const { register, handleSubmit } = useForm();
     const imgbbKey = process.env.REACT_APP_imgbb_key;
     const onSubmit = data => {
@@ -45,8 +52,9 @@ const Signup = () => {
                                 }).catch((error) => {
                                     console.log(error);
                                 });
-                            saveUserDetails(userDetails)
+                            saveUserDetails(userDetails, user.email)
                             toast.success('Succusfully SignUp');
+                            
                         })
                         .catch((error) => {
                             const errorCode = error.code;
@@ -59,11 +67,12 @@ const Signup = () => {
 
     };
     // Save user details to DB
-    const saveUserDetails = details => {
-        fetch(`http://localhost:5000/users`, {
-            method: 'POST',
+    const saveUserDetails = (details, email) => {
+        fetch(`http://localhost:5000/users?email=${email}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
             },
             body: JSON.stringify(details)
         })
@@ -71,8 +80,8 @@ const Signup = () => {
             .then(data => {
                 console.log(data);
                 if (data.acknowledged) {
+                    setSignupEmail(email);
                     console.log('Post Successfully');
-
                 }
             })
     }
@@ -83,7 +92,15 @@ const Signup = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                const detail = {
+                    name: user.displayName,
+                    email: user.email,
+                    role: 'Buyer',
+                    photoURL: user.photoURL
+                }
+                saveUserDetails(detail, user.email);
                 toast.success('Succusfully SignIn');
+                
 
 
             })
