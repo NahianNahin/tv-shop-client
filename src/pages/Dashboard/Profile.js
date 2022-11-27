@@ -3,13 +3,15 @@ import React, { useContext } from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 const Profile = () => {
+    useTitle('Profile -- Dashboard');
     const { user } = useContext(AuthContext);
     // Queries
     const { data: profileUser = [], isLoading } = useQuery({
         queryKey: ['profileUser', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?email=${user?.email}`, {
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/users?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }

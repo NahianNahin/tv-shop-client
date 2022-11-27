@@ -4,13 +4,15 @@ import toast from 'react-hot-toast';
 
 import LoodingSpinner from '../../components/LoadingSpinner'
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 const MyProduct = () => {
+    useTitle('My Products');
     const { user } = useContext(AuthContext);
     // Queries
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/seller_products?email=${user?.email}`, {
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/seller_products?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -21,7 +23,7 @@ const MyProduct = () => {
     })
     //Add Advertised
     const handleAddAdvertise = id => {
-        fetch(`http://localhost:5000/product/get_advertise/${id}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/product/get_advertise/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -40,7 +42,7 @@ const MyProduct = () => {
     }
     //Remove Advertised
     const handleRemoveAdvertise = id => {
-        fetch(`http://localhost:5000/product/remove_advertise/${id}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/product/remove_advertise/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -59,7 +61,7 @@ const MyProduct = () => {
     }
     //Sold
     const handleAddSold = id => {
-        fetch(`http://localhost:5000/product/sold_status/${id}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/product/sold_status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -78,7 +80,7 @@ const MyProduct = () => {
     }
     //Sold
     const handleAddUnsold = id => {
-        fetch(`http://localhost:5000/product/unsold_status/${id}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/product/unsold_status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

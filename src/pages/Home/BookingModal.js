@@ -10,7 +10,7 @@ const BookingModal = ({ selectProduct, refetch, setselectProduct }) => {
         porduct_name, resale_price, productImage } = selectProduct;
     const onSubmit = data => {
         const newData = { ...data, productImage }
-        fetch(`http://localhost:5000/bookings`, {
+        fetch(`https://my-assignment-12-server.vercel.app/bookings`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

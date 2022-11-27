@@ -2,12 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
 import LoodingSpinner from '../../components/LoadingSpinner'
+import useTitle from '../../hooks/useTitle';
 const ReportedItems = () => {
+    useTitle('Reported Items');
     // Queries
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/reported_products`, {
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/reported_products`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -18,7 +20,7 @@ const ReportedItems = () => {
     })
     // DELETED
     const handleDeleteProduct = id => {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/product/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`

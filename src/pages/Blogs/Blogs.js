@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import useTitle from '../../hooks/useTitle';
 import Blog from './Blog';
 
 
 const Blogs = () => {
+    useTitle('Blogs');
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/blogs`)
+        axios.get(`https://my-assignment-12-server.vercel.app/blogs`)
             .then(res => setBlogs(res.data))
             .catch(err => console.log(err))          
     }, [])

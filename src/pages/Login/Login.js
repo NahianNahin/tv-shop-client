@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import useToken from '../../hooks/useToken';
 
 
 const Login = () => {
+    useTitle('Login');
     const navigate = useNavigate();
     const location = useLocation();
     const { signIn, googleSignIn } = useContext(AuthContext);
@@ -39,7 +41,7 @@ const Login = () => {
     };
       // Save user details to DB
       const saveUserDetails = (details, email) => {
-        fetch(`http://localhost:5000/users?email=${email}`, {
+        fetch(`https://my-assignment-12-server.vercel.app/users?email=${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

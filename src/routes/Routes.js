@@ -92,7 +92,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <BuyerRoutes><Payment></Payment></BuyerRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`,{
+                loader: ({ params }) => fetch(`https://my-assignment-12-server.vercel.app/bookings/${params.id}`,{
                     headers: {
                         authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                     }

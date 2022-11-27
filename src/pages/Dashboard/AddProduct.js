@@ -4,15 +4,17 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const AddProduct = () => {
+    useTitle('Add Product');
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     // Queries
     const { data: categories = [], isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/categories`);
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/categories`);
             const data = await res.json();
             return data;
         }
@@ -68,7 +70,7 @@ const AddProduct = () => {
                     }
                     console.log(product);
                     // POST
-                    fetch(`http://localhost:5000/products`, {
+                    fetch(`https://my-assignment-12-server.vercel.app/products`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

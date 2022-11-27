@@ -3,15 +3,17 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const MyOrder = () => {
+    useTitle('My Orders');
     const { user } = useContext(AuthContext);
     console.log(user);
     // Queries
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`,{
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/bookings?email=${user?.email}`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }

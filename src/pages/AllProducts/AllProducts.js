@@ -3,12 +3,14 @@ import { useState } from 'react';
 import ProductCard from '../../components/ProductCard';
 import BookingModal from '../Home/BookingModal';
 import LoodingSpinner from '../../components/LoadingSpinner'
+import useTitle from '../../hooks/useTitle';
 const AllProducts = () => {
+    useTitle('All Products')
     const [selectProduct, setselectProduct] = useState(null);
     const { data: all_products = [], isLoading ,refetch} = useQuery({
         queryKey: ['all_products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/all_products`,{
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/all_products`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 },
