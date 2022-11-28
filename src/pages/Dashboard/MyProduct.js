@@ -101,87 +101,90 @@ const MyProduct = () => {
         return <LoodingSpinner></LoodingSpinner>
     }
     return (
-        <div className='p-20'>
-            <p className='text-3xl'>My Products</p>
-            <div className="overflow-x-auto mt-10">
-                <table className="table w-full">
+        <div>
+            {
+                products.length === 0
+                    ?
+                    <p className='text-2xl'>No Product Available.Please Add Products</p>
+                    :
+                    <div className='p-20'>
+                        <p className='text-3xl'>My Products</p>
+                        <div className="overflow-x-auto mt-10">
+                            <table className="table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>SL NO.</th>
+                                        <th>Avatar</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Change Status</th>
+                                        <th> Status</th>
+                                        <th><p className='text-center'>Action</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                    <thead>
-                        <tr>
-                            <th>SL NO.</th>
-                            <th>Avatar</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Change Status</th>
-                            <th> Status</th>
-                            <th><p className='text-center'>Action</p></th>
+                                    {products.map((product, i) => <tr key={i}>
+                                        <th>{i + 1}</th>
+                                        <td>
+                                            <div className="avatar">
+                                                <div className="w-20 rounded">
+                                                    <img src={product.productImage} alt="Product" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span className='font-bold'>{product.porduct_name}</span></td>
+                                        <td>{product.resale_price} TK</td>
+                                        <td>
+                                            {
+                                                product?.sold
+                                                    ?
+                                                    <button
+                                                        onClick={() => handleAddUnsold(product._id)}
+                                                        className='btn btn-sm btn-success font-bold btn-outline'>
+                                                        Available
+                                                    </button>
+                                                    :
+                                                    <button
+                                                        onClick={() => handleAddSold(product._id)}
+                                                        className='btn btn-sm btn-error font-bold btn-outline'>
+                                                        Sold
+                                                    </button>
 
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {products.map((product, i) => <tr key={i}>
-                            <th>{i + 1}</th>
-                            <td>
-                                <div className="avatar">
-                                    <div className="w-20 rounded">
-                                        <img src={product.productImage} alt="Product" />
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span className='font-bold'>{product.porduct_name}</span></td>
-                            <td>{product.resale_price} TK</td>
-                            <td>
-                                {
-                                    product?.sold
-                                        ?
-                                        <button
-                                            onClick={() => handleAddUnsold(product._id)}
-                                            className='btn btn-sm btn-success font-bold btn-outline'>
-                                            Available
-                                        </button>
-                                        :
-                                        <button
-                                            onClick={() => handleAddSold(product._id)}
-                                            className='btn btn-sm btn-error font-bold btn-outline'>
-                                            Sold
-                                        </button>
-
-                                }
-                            </td>
-                            <td>
-                                {
-                                    product?.sold
-                                        ?
-                                        <span className='font-bold'>Sold</span>
-                                        :
-                                        <span>Available</span>
-                                }
-                            </td>
-                            <td>
-                                {
-                                    product?.advertised
-                                        ?
-                                        <button
-                                            onClick={() => handleRemoveAdvertise(product._id)}
-                                            className='btn border-0 btn-sm  text-white font-bold'>
-                                            Remove Advertised
-                                        </button>
-                                        :
-                                        <button
-                                            onClick={() => handleAddAdvertise(product._id)}
-                                            className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm  text-white font-bold'>
-                                            Add Advertised
-                                        </button>
-                                }
-                            </td>
-
-                        </tr>)}
-
-                    </tbody>
-                </table>
-            </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            {
+                                                product?.sold
+                                                    ?
+                                                    <span className='font-bold'>Sold</span>
+                                                    :
+                                                    <span>Available</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            {
+                                                product?.advertised
+                                                    ?
+                                                    <button
+                                                        onClick={() => handleRemoveAdvertise(product._id)}
+                                                        className='btn border-0 btn-sm  text-white font-bold'>
+                                                        Remove Advertised
+                                                    </button>
+                                                    :
+                                                    <button
+                                                        onClick={() => handleAddAdvertise(product._id)}
+                                                        className='btn bg-gradient-to-r from-primary to-secondary border-0 btn-sm  text-white font-bold'>
+                                                        Add Advertised
+                                                    </button>
+                                            }
+                                        </td>
+                                    </tr>)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            }
         </div>
     );
 };

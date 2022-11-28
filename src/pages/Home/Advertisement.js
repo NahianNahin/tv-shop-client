@@ -5,10 +5,10 @@ import ProductCard from '../../components/ProductCard';
 import BookingModal from './BookingModal';
 const Advertisement = () => {
     const [selectProduct, setselectProduct] = useState(null);
-    const { data: advertise_products = [], isLoading ,refetch} = useQuery({
+    const { data: advertise_products = [], isLoading, refetch } = useQuery({
         queryKey: ['advertise_products'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/advertise_products`,{
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/advertise_products`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 },
@@ -24,7 +24,7 @@ const Advertisement = () => {
     return (
         <div>
             {
-                advertise_products.length !== 0 
+                advertise_products.length !== 0
                 &&
                 <>
                     <h1 className='text-primary text-xl font-bold text-center'>ADVERTISEMENT</h1>
@@ -35,6 +35,7 @@ const Advertisement = () => {
                                 key={product._id}
                                 product={product}
                                 setselectProduct={setselectProduct}
+                                refetch={refetch}
                             ></ProductCard>)
                         }
                     </div>

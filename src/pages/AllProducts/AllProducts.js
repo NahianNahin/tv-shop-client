@@ -7,10 +7,10 @@ import useTitle from '../../hooks/useTitle';
 const AllProducts = () => {
     useTitle('All Products')
     const [selectProduct, setselectProduct] = useState(null);
-    const { data: all_products = [], isLoading ,refetch} = useQuery({
+    const { data: all_products = [], isLoading, refetch } = useQuery({
         queryKey: ['all_products'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/all_products`,{
+            const res = await fetch(`https://my-assignment-12-server.vercel.app/all_products`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 },
@@ -26,30 +26,31 @@ const AllProducts = () => {
     return (
         <div>
             {
-                all_products.length === 0 ? 
-                <h1 className='text-black text-4xl text-center'>No Items Available</h1>
-                :
-                <>
-                    <h1 className='text-primary text-xl font-bold text-center'>All PRODUCTS</h1>
-                    <h1 className='text-black text-4xl text-center'>All Our Resale Products</h1>
-                    <div>
+                all_products.length === 0 ?
+                    <h1 className='text-black text-4xl text-center'>No Items Available</h1>
+                    :
+                    <>
+                        <h1 className='text-primary text-xl font-bold text-center'>All PRODUCTS</h1>
+                        <h1 className='text-black text-4xl text-center'>All Our Resale Products</h1>
+                        <div>
+                            {
+                                all_products.map(product => <ProductCard
+                                    key={product._id}
+                                    product={product}
+                                    setselectProduct={setselectProduct}
+                                    refetch={refetch}
+                                ></ProductCard>)
+                            }
+                        </div>
                         {
-                            all_products.map(product => <ProductCard
-                                key={product._id}
-                                product={product}
+                            selectProduct &&
+                            <BookingModal
+                                selectProduct={selectProduct}
                                 setselectProduct={setselectProduct}
-                            ></ProductCard>)
+                                refetch={refetch}
+                            ></BookingModal>
                         }
-                    </div>
-                    {
-                        selectProduct &&
-                        <BookingModal
-                            selectProduct={selectProduct}
-                            setselectProduct={setselectProduct}
-                            refetch={refetch}
-                        ></BookingModal>
-                    }
-                </>
+                    </>
             }
         </div>
     );
