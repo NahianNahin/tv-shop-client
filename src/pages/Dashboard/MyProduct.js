@@ -101,13 +101,13 @@ const MyProduct = () => {
         return <LoodingSpinner></LoodingSpinner>
     }
     return (
-        <div>
+        <div className='p-20'>
             {
                 products.length === 0
                     ?
-                    <p className='text-2xl'>No Product Available.Please Add Products</p>
+                    <p className='text-2xl font-bold'>No Product Available.Please Add Products</p>
                     :
-                    <div className='p-20'>
+                    <div >
                         <p className='text-3xl'>My Products</p>
                         <div className="overflow-x-auto mt-10">
                             <table className="table w-full">

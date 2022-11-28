@@ -46,7 +46,7 @@ const DashBoardLayouts = () => {
                             <>
                                 <li><Link to='/dashboard/all_seller' className='font-semibold'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/all_buyer' className='font-semibold'>All Buyers</Link></li>
-                                <li><Link to='/dashboard/reported_item' className='font-semibold'>Repoeted Items</Link></li>
+                                <li><Link to='/dashboard/reported_item' className='font-semibold'>Reported Items</Link></li>
                             </>
                         }
 
