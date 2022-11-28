@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 
 const CheckoutForm = ({ item }) => {
-    const { price, username, email, _id } = item;
+    const { price, username, email, _id, product_id } = item;
     const [cardError, setCardError] = useState('');
     const [cardSuccess, setCardSuccess] = useState('');
     const [cardTransation, setCardTransation] = useState('');
@@ -14,7 +14,7 @@ const CheckoutForm = ({ item }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("https://my-assignment-12-server.vercel.app/create-payment-intent", {
+        fetch("https://my-assignment-12-server-nahiannahin.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -78,10 +78,11 @@ const CheckoutForm = ({ item }) => {
                 email,
                 bookingId: _id,
                 transationId: paymentIntent.id,
+                product_id
 
             }
 
-            fetch('https://my-assignment-12-server.vercel.app/payments', {
+            fetch('https://my-assignment-12-server-nahiannahin.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

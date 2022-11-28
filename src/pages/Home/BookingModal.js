@@ -7,10 +7,10 @@ const BookingModal = ({ selectProduct, refetch, setselectProduct }) => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
     const {
-        porduct_name, resale_price, productImage } = selectProduct;
+        porduct_name, resale_price, productImage, _id } = selectProduct;
     const onSubmit = data => {
-        const newData = { ...data, productImage }
-        fetch(`https://my-assignment-12-server.vercel.app/bookings`, {
+        const newData = { ...data, productImage, product_id : _id }
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/bookings`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

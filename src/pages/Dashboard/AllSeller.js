@@ -9,7 +9,7 @@ const AllSeller = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['Seller'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/users_role?role=Seller`, {
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/users_role?role=Seller`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -20,7 +20,7 @@ const AllSeller = () => {
     })
     //Seller Verified
     const handleSellerVerified = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/user/seller_verified/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/user/seller_verified/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -39,7 +39,7 @@ const AllSeller = () => {
     }
     // DELETED
     const handleDeleteUser = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/users/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/users/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`

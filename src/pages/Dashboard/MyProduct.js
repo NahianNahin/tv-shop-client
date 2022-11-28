@@ -12,7 +12,7 @@ const MyProduct = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/seller_products?email=${user?.email}`, {
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/seller_products?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -23,7 +23,7 @@ const MyProduct = () => {
     })
     //Add Advertised
     const handleAddAdvertise = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/get_advertise/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/get_advertise/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -42,7 +42,7 @@ const MyProduct = () => {
     }
     //Remove Advertised
     const handleRemoveAdvertise = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/remove_advertise/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/remove_advertise/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -61,7 +61,7 @@ const MyProduct = () => {
     }
     //Sold
     const handleAddSold = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/sold_status/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/sold_status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -80,7 +80,7 @@ const MyProduct = () => {
     }
     //Sold
     const handleAddUnsold = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/unsold_status/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/unsold_status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

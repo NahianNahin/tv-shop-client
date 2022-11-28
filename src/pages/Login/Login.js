@@ -41,7 +41,7 @@ const Login = () => {
     };
       // Save user details to DB
       const saveUserDetails = (details, email) => {
-        fetch(`https://my-assignment-12-server.vercel.app/users?email=${email}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/users?email=${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

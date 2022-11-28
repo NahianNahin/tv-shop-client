@@ -14,7 +14,7 @@ const AddProduct = () => {
     const { data: categories = [], isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/categories`);
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/categories`);
             const data = await res.json();
             return data;
         }
@@ -66,11 +66,12 @@ const AddProduct = () => {
                         product_condition,
                         details,
                         sellerEmail: user.email,
+                        sold: false
 
                     }
                     console.log(product);
                     // POST
-                    fetch(`https://my-assignment-12-server.vercel.app/products`, {
+                    fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/products`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

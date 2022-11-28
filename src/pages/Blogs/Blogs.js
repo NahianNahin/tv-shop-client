@@ -8,7 +8,7 @@ const Blogs = () => {
     useTitle('Blogs');
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        axios.get(`https://my-assignment-12-server.vercel.app/blogs`)
+        axios.get(`https://my-assignment-12-server-nahiannahin.vercel.app/blogs`)
             .then(res => setBlogs(res.data))
             .catch(err => console.log(err))          
     }, [])

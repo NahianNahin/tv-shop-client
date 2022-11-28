@@ -10,7 +10,7 @@ const AllProducts = () => {
     const { data: all_products = [], isLoading, refetch } = useQuery({
         queryKey: ['all_products'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/all_products`, {
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/all_products`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 },

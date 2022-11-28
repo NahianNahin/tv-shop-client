@@ -30,14 +30,14 @@ const ProductCard = ({ product, setselectProduct, refetch }) => {
     const { data: sellerDetail = [] } = useQuery({
         queryKey: ['seller', seller],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/users_by_seller?seller=${seller}`);
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/users_by_seller?seller=${seller}`);
             const data = await res.json();
             return data;
         }
     })
     //Add Report
     const handleAddReport = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/add_reported/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/add_reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

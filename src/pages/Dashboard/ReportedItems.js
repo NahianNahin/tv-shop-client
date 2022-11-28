@@ -9,7 +9,7 @@ const ReportedItems = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/reported_products`, {
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/reported_products`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
@@ -20,7 +20,7 @@ const ReportedItems = () => {
     })
     // DELETED
     const handleDeleteProduct = id => {
-        fetch(`https://my-assignment-12-server.vercel.app/product/${id}`, {
+        fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/product/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`

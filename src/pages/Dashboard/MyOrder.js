@@ -13,7 +13,7 @@ const MyOrder = () => {
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(`https://my-assignment-12-server.vercel.app/bookings?email=${user?.email}`, {
+            const res = await fetch(`https://my-assignment-12-server-nahiannahin.vercel.app/bookings?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('TV_Shop_Token')}`
                 }
